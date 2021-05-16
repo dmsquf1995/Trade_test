@@ -38,7 +38,7 @@ coin_name = pyupbit.get_tickers(fiat="KRW")
 ch = 0 # 판매 상태 확인 0 : 코인 찾는 중 1 : 코인 매수 함 2 : 코인 매도 함
 buy_coin = None
 p = 1.02 # 수익률
-k = 0.97 # 시가의 -5 %
+k = 0.95 # 시가의 -5 %
 money = 10000
 
 while True : # 9시까지 거래 금지
