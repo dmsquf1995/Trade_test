@@ -41,15 +41,14 @@ p = 1.02 # 수익률
 k = 0.97 # 시가의 -5 %
 money = 10000
 
-while False : # 9시까지 거래 금지
+while True : # 9시까지 거래 금지
     now = datetime.datetime.now()
     start_time = get_start_time("KRW-BTC")
     end_time = start_time + datetime.timedelta(days=1)
 
     if now >= end_time - datetime.timedelta(minutes=2) :
         break
-    print("아직 9시가 아닙니다")
-
+        
     time.sleep(60)
     
 print("AUTOTRADE START",money)
