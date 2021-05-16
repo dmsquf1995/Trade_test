@@ -48,7 +48,6 @@ while True : # 9시까지 거래 금지
 
     if now >= end_time - datetime.timedelta(minutes=2) :
         break
-    print("아직 9시가 아닙니다")
 
     time.sleep(60)
     
