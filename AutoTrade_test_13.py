@@ -27,7 +27,7 @@ def get_high_price(ticker) :
 def get_target_price(ticker, k) :
     """ 매수 목표가 조회 """
     df = pyupbit.get_ohlcv(ticker, count=1)
-    return df.iloc[0]['open'] * k # 시가의 -k %
+    return df.iloc[0]['open'] * k # 시가의 k %
 
 '''
 전일대비 -k % 이상인 코인에 대한 매수, p % 수익, 하루에 한 번 매수
@@ -38,7 +38,7 @@ coin_name = pyupbit.get_tickers(fiat="KRW")
 ch = 0 # 판매 상태 확인 0 : 코인 찾는 중 1 : 코인 매수 함 2 : 코인 매도 함
 buy_coin = None
 p = 1.02 # 수익률
-k = 0.97 # 시가의 -5 %
+k = 0.97 # 시가의 97 %
 money = 10000
 
 while True : # 9시까지 거래 금지
@@ -48,7 +48,8 @@ while True : # 9시까지 거래 금지
 
     if now >= end_time - datetime.timedelta(minutes=2) :
         break
-        
+    #print("아직 9시가 아닙니다")
+
     time.sleep(60)
     
 print("AUTOTRADE START",money)
@@ -70,7 +71,7 @@ while True :
                     target_price = get_target_price(coin, k) # 목표 가격
                     current_price = get_current_price(coin) # 현재 가격
 
-                    print(format(coin, " >10s"), "   현재가 : %11.2f"%current_price, "   목표가 : %11.2f"%target_price)
+                    #print(format(coin, " >10s"), "   현재가 : %11.2f"%current_price, "   목표가 : %11.2f"%target_price)
                     
                     if target_price >= current_price and ch == 0 :
                         
@@ -80,12 +81,13 @@ while True :
                             buy_coin_price = get_current_price(coin) # 매수 코인의 가격
                             coin_count = money / buy_coin_price
                             money = money - (buy_coin_price * coin_count)
+                            print(buy_coin, current_price)
                             ch = 1
                             break
 
         else : # 코인을 샀을 때
             
-            print(buy_coin, "   현재가 :", get_current_price(buy_coin), "   매수가 : ",buy_coin_price, "    목표 수익가 : ",buy_coin_price*p)
+            #print(buy_coin, "   현재가 :", get_current_price(buy_coin), "   매수가 : ",buy_coin_price, "    목표 수익가 : ",buy_coin_price*p)
 
             if start_time < now < end_time - datetime.timedelta(minutes=2) :
 
